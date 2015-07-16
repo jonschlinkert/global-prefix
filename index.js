@@ -7,6 +7,11 @@
 
 'use strict';
 
+/**
+ * This is the code used internally by npm to
+ * resolve the global prefix.
+ */
+
 var isWindows = require('is-windows');
 var path = require('path');
 var prefix;
