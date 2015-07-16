@@ -7,12 +7,13 @@
 
 'use strict';
 
+var isWindows = require('is-windows');
 var path = require('path');
 var prefix;
 
 if (process.env.PREFIX) {
   prefix = process.env.PREFIX;
-} else if (process.platform === 'win32') {
+} else if (isWindows()) {
   // c:\node\node.exe --> prefix=c:\node\
   prefix = path.dirname(process.execPath);
 } else {
