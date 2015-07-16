@@ -31,5 +31,8 @@
   "devDependencies": {
     "mocha": "*",
     "should": "*"
+  },
+  "dependencies": {
+    "is-windows": "^0.1.0"
   }
 }
