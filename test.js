@@ -7,11 +7,12 @@
 
 'use strict';
 
+require('mocha');
 var assert = require('assert');
 var prefix = require('./');
 
-describe('prefix', function () {
-  it('should:', function () {
+describe('prefix', function() {
+  it('should:', function() {
     assert(prefix == '/usr/local');
   });
 });

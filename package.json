@@ -19,12 +19,12 @@
   "scripts": {
     "test": "mocha"
   },
-  "devDependencies": {
-    "mocha": "*",
-    "should": "*"
-  },
   "dependencies": {
     "is-windows": "^0.1.0"
+  },
+  "devDependencies": {
+    "gulp-format-md": "^0.1.7",
+    "mocha": "*"
   },
   "keywords": [
     "global",
@@ -36,8 +36,26 @@
     "resolve"
   ],
   "verb": {
+    "run": true,
+    "toc": false,
+    "layout": "nil",
+    "tasks": [
+      "readme"
+    ],
+    "plugins": [
+      "gulp-format-md"
+    ],
     "related": {
-      "list": ["global-modules", "global-paths"]
+      "list": [
+        "global-modules",
+        "global-paths"
+      ]
+    },
+    "reflinks": [
+      "verb"
+    ],
+    "lint": {
+      "reflinks": true
     }
   }
 }
