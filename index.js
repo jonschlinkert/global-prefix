@@ -18,7 +18,7 @@ var prefix;
 
 if (process.env.PREFIX) {
   prefix = process.env.PREFIX;
-} else if (isWindows()) {
+} else if (isWindows === true || isWindows()) {
   // c:\node\node.exe --> prefix=c:\node\
   prefix = path.dirname(process.execPath);
 } else {
