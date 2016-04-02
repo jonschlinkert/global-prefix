@@ -20,7 +20,9 @@ if (process.env.PREFIX) {
   prefix = process.env.PREFIX;
 } else if (isWindows === true || isWindows()) {
   // c:\node\node.exe --> prefix=c:\node\
-  prefix = path.dirname(process.execPath);
+  prefix = process.env.APPDATA
+    ? path.join(process.env.APPDATA, 'npm')
+    : path.dirname(process.execPath);
 } else {
   // /usr/local/bin/node --> prefix=/usr/local
   prefix = path.dirname(path.dirname(process.execPath));
