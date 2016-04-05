@@ -13,6 +13,6 @@ var prefix = require('./');
 
 describe('prefix', function() {
   it('should:', function() {
-    assert(prefix == '/usr/local');
+    assert.equal('/usr/local', prefix);
   });
 });
