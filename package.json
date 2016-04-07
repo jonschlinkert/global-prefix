@@ -20,11 +20,11 @@
     "test": "mocha"
   },
   "dependencies": {
-    "is-windows": "^0.1.0"
+    "is-windows": "^0.1.1"
   },
   "devDependencies": {
     "gulp-format-md": "^0.1.7",
-    "mocha": "*"
+    "mocha": "^2.4.5"
   },
   "keywords": [
     "global",
@@ -38,7 +38,7 @@
   "verb": {
     "run": true,
     "toc": false,
-    "layout": "nil",
+    "layout": "default",
     "tasks": [
       "readme"
     ],
