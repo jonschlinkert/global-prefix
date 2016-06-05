@@ -25,7 +25,7 @@ if (process.env.PREFIX) {
     // Otherwise find the path of npm
     var npm = npmPath();
     if (npm) {
-      // Check the built-in npm config file 
+      // Check the built-in npm config file
       var builtinConfig = path.resolve(npm, '..', '..', 'npmrc');
       prefix = readPrefix(builtinConfig);
 
@@ -42,7 +42,7 @@ if (process.env.PREFIX) {
 
 function fallback() {
   var isWindows = require('is-windows');
-  if (isWindows === true || isWindows()) {
+  if (isWindows()) {
     // c:\node\node.exe --> prefix=c:\node\
     prefix = process.env.APPDATA
       ? path.join(process.env.APPDATA, 'npm')

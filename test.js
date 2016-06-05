@@ -14,7 +14,7 @@ var isWindows = require('is-windows');
 var prefix = require('./');
 
 describe('prefix', function() {
-  if (isWindows === true || isWindows()) {
+  if (isWindows()) {
     it('should resolve the path to the windows global prefix:', function() {
       assert.equal(path.dirname(process.execPath), prefix);
     });
