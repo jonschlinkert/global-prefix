@@ -7,30 +7,74 @@
 
 'use strict';
 
-/**
- * This is the code used internally by npm to
- * resolve the global prefix.
- */
-
-var isWindows = require('is-windows');
+var fs = require('fs')
 var path = require('path');
+var osenv = require('osenv');
+var ini = require('ini');
+
 var prefix;
 
 if (process.env.PREFIX) {
   prefix = process.env.PREFIX;
-} else if (isWindows === true || isWindows()) {
-  // c:\node\node.exe --> prefix=c:\node\
-  prefix = process.env.APPDATA
-    ? path.join(process.env.APPDATA, 'npm')
-    : path.dirname(process.execPath);
 } else {
-  // /usr/local/bin/node --> prefix=/usr/local
-  prefix = path.dirname(path.dirname(process.execPath));
+  // Start by checking if the global prefix is set by the user
+  var userConfig = path.resolve(osenv.home(), '.npmrc');
+  prefix = readPrefix(userConfig);
 
-  // destdir only is respected on Unix
-  if (process.env.DESTDIR) {
-    prefix = path.join(process.env.DESTDIR, prefix);
+  if (!prefix) {
+    // Otherwise find the path of npm
+    var npm = npmPath();
+    if (npm) {
+      // Check the built-in npm config file 
+      var builtinConfig = path.resolve(npm, '..', '..', 'npmrc');
+      prefix = readPrefix(builtinConfig);
+
+      if (prefix) {
+        // Now the global npm config can also be checked.
+        var globalConfig = path.resolve(prefix, 'etc', 'npmrc');
+        prefix = readPrefix(globalConfig) || prefix;
+      }
+    }
+
+    if (!prefix) fallback();
   }
+}
+
+function fallback() {
+  var isWindows = require('is-windows');
+  if (isWindows === true || isWindows()) {
+    // c:\node\node.exe --> prefix=c:\node\
+    prefix = process.env.APPDATA
+      ? path.join(process.env.APPDATA, 'npm')
+      : path.dirname(process.execPath);
+  } else {
+    // /usr/local/bin/node --> prefix=/usr/local
+    prefix = path.dirname(path.dirname(process.execPath));
+
+    // destdir only is respected on Unix
+    if (process.env.DESTDIR) {
+      prefix = path.join(process.env.DESTDIR, prefix);
+    }
+  }
+}
+
+function npmPath() {
+  try {
+    return fs.realpathSync(require('which').sync('npm'))
+  } catch (ex) {
+  }
+  return false
+}
+
+function readPrefix(configPath) {
+  try {
+    var data = fs.readFileSync(configPath, 'utf-8');
+    var config = ini.parse(data);
+    if (config.prefix) return config.prefix;
+  } catch (ex) {
+    // file not found
+  }
+  return false;
 }
 
 module.exports = prefix;
