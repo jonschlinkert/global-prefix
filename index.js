@@ -18,8 +18,11 @@ if (process.env.PREFIX) {
   prefix = process.env.PREFIX;
 } else {
   // Start by checking if the global prefix is set by the user
-  var userConfig = path.resolve(osenv.home(), '.npmrc');
-  prefix = readPrefix(userConfig);
+  if (osenv.home()) {
+    // home() returns undefined if $HOME not set; path.resolve requires strings
+    var userConfig = path.resolve(osenv.home(), '.npmrc');
+    prefix = readPrefix(userConfig);
+  }
 
   if (!prefix) {
     // Otherwise find the path of npm
