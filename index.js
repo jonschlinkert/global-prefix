@@ -7,10 +7,10 @@
 
 'use strict';
 
-var fs = require('fs')
+var homedir = require('homedir-polyfill');
 var path = require('path');
-var osenv = require('osenv');
 var ini = require('ini');
+var fs = require('fs')
 
 var prefix;
 
@@ -18,7 +18,7 @@ if (process.env.PREFIX) {
   prefix = process.env.PREFIX;
 } else {
   // Start by checking if the global prefix is set by the user
-  var userConfig = path.resolve(osenv.home(), '.npmrc');
+  var userConfig = path.resolve(homedir(), '.npmrc');
   prefix = readPrefix(userConfig);
 
   if (!prefix) {
