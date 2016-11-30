@@ -7,9 +7,9 @@
 
 'use strict';
 
-var fs = require('fs')
+var fs = require('fs');
 var path = require('path');
-var osenv = require('osenv');
+var osHomedir = require('os-homedir');
 var ini = require('ini');
 
 var prefix;
@@ -18,7 +18,7 @@ if (process.env.PREFIX) {
   prefix = process.env.PREFIX;
 } else {
   // Start by checking if the global prefix is set by the user
-  var userConfig = path.resolve(osenv.home(), '.npmrc');
+  var userConfig = path.resolve(osHomedir(), '.npmrc');
   prefix = readPrefix(userConfig);
 
   if (!prefix) {
@@ -60,10 +60,10 @@ function fallback() {
 
 function npmPath() {
   try {
-    return fs.realpathSync(require('which').sync('npm'))
+    return fs.realpathSync(require('which').sync('npm'));
   } catch (ex) {
   }
-  return false
+  return false;
 }
 
 function readPrefix(configPath) {
