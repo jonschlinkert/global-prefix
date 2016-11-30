@@ -64,10 +64,10 @@ function fallback() {
 
 function npmPath() {
   try {
-    return fs.realpathSync(require('which').sync('npm'))
+    return fs.realpathSync(require('which').sync('npm'));
   } catch (ex) {
   }
-  return false
+  return false;
 }
 
 function readPrefix(configPath) {
