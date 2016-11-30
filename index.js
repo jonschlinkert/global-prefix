@@ -18,8 +18,12 @@ if (process.env.PREFIX) {
   prefix = process.env.PREFIX;
 } else {
   // Start by checking if the global prefix is set by the user
-  var userConfig = path.resolve(homedir(), '.npmrc');
-  prefix = readPrefix(userConfig);
+  var home = homedir();
+  if (home) {
+    // home() returns undefined if $HOME not set; path.resolve requires strings
+    var userConfig = path.resolve(home, '.npmrc');
+    prefix = readPrefix(userConfig);
+  }
 
   if (!prefix) {
     // Otherwise find the path of npm
