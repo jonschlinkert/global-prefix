@@ -17,7 +17,7 @@ var prefix = require('./');
 describe('prefix', function() {
   if (isWindows()) {
     it('should resolve the path to the windows global prefix:', function() {
-      assert.equal(path.dirname(process.execPath), prefix);
+      assert.equal(process.env.APPDATA ? path.join(process.env.APPDATA, 'npm') : path.dirname(process.execPath), prefix);
     });
   }
 
