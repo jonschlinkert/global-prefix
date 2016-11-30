@@ -61,5 +61,13 @@
     "lint": {
       "reflinks": true
     }
-  }
+  },
+  "contributors": [
+    "Jon Schlinkert <jon.schlinkert@sellside.com> (http://twitter.com/jonschlinkert)",
+    "Alexandr Bogachev <kuksikus@gmail.com> (https://github.com/rmbaad)",
+    "JasonChang <chaoyue.chang@qq.com> (https://packagist.org/packages/jason-chang)",
+    "Jorrit Schippers (https://www.ncode.nl)",
+    "Mathias Rasmussen (https://github.com/mathiasvr)",
+    "Charlike Mike Reagent (http://i.am.charlike.online)"
+  ]
 }
