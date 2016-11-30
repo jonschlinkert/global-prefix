@@ -20,7 +20,7 @@ if (process.env.PREFIX) {
   // Start by checking if the global prefix is set by the user
   var home = homedir();
   if (home) {
-    // home() returns undefined if $HOME not set; path.resolve requires strings
+    // homedir() returns undefined if $HOME not set; path.resolve requires strings
     var userConfig = path.resolve(home, '.npmrc');
     prefix = readPrefix(userConfig);
   }
