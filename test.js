@@ -8,10 +8,10 @@
 'use strict';
 
 require('mocha');
+var fs = require('fs');
 var path = require('path');
 var assert = require('assert');
 var isWindows = require('is-windows');
-var exists = require('fs-exists-sync');
 var prefix = require('./');
 
 describe('prefix', function() {
@@ -22,6 +22,6 @@ describe('prefix', function() {
   }
 
   it('should resolve the path to the global prefix:', function() {
-    assert(exists(prefix));
+    assert(fs.existsSync(prefix));
   });
 });
