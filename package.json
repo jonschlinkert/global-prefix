@@ -36,7 +36,6 @@
     "which": "^1.2.14"
   },
   "devDependencies": {
-    "fs-exists-sync": "^0.1.0",
     "gulp-format-md": "^0.1.12",
     "mocha": "^3.4.2"
   },
