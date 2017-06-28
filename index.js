@@ -9,6 +9,7 @@
 
 var fs = require('fs');
 var path = require('path');
+var resolve = require('resolve-dir');
 var homedir = require('homedir-polyfill');
 var ini = require('ini');
 var prefix;
@@ -43,7 +44,10 @@ function getPrefix() {
       if (!prefix) fallback();
     }
   }
-  return prefix;
+
+  if (prefix) {
+    return resolve(prefix);
+  }
 }
 
 function fallback() {
