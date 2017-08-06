@@ -9,7 +9,7 @@
 
 var fs = require('fs');
 var path = require('path');
-var resolve = require('resolve-dir');
+var expand = require('expand-tilde');
 var homedir = require('homedir-polyfill');
 var ini = require('ini');
 var prefix;
@@ -46,7 +46,7 @@ function getPrefix() {
   }
 
   if (prefix) {
-    return resolve(prefix);
+    return expand(prefix);
   }
 }
 
