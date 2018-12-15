@@ -8,20 +8,19 @@
 'use strict';
 
 require('mocha');
-var fs = require('fs');
-var path = require('path');
-var assert = require('assert');
-var isWindows = require('is-windows');
-var prefix = require('./');
+const fs = require('fs');
+const path = require('path');
+const assert = require('assert');
+const prefix = require('./');
 
-describe('prefix', function() {
-  if (isWindows()) {
-    it('should resolve the path to the windows global prefix:', function() {
-      assert.equal(process.env.APPDATA ? path.join(process.env.APPDATA, 'npm') : path.dirname(process.execPath), prefix);
-    });
-  }
+describe('prefix', () => {
+  it('should resolve the path to the windows global prefix', () => {
+    if (process.platform === 'win32') {
+      assert.equal(prefix, process.env.APPDATA ? path.join(process.env.APPDATA, 'npm') : path.dirname(process.execPath));
+    }
+  });
 
-  it('should resolve the path to the global prefix:', function() {
+  it('should resolve the path to the global prefix', () => {
     assert(fs.existsSync(prefix));
   });
 });
