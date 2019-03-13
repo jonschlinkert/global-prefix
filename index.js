@@ -11,6 +11,7 @@ const fs = require('fs');
 const os = require('os');
 const path = require('path');
 const ini = require('ini');
+const which = require('which');
 let prefix;
 
 const getPrefix = () => {
@@ -64,7 +65,7 @@ const getPrefix = () => {
 
 function tryNpmPath() {
   try {
-    return fs.realpathSync(require('which').sync('npm'));
+    return fs.realpathSync(which.sync('npm'));
   } catch (err) { /* do nothing */ }
 }
 
