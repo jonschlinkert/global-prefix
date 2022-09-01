@@ -30,7 +30,7 @@ const getPrefix = () => {
   }
 
   // Otherwise find the path of npm
-  let npm = tryNpmPath();
+  let npm = tryWhich('npm');
   if (npm) {
     // Check the built-in npm config file
     prefix = tryConfigPath(path.resolve(npm, '..', '..', 'npmrc'));
@@ -43,15 +43,16 @@ const getPrefix = () => {
 
   if (!prefix) {
     let { APPDATA, DESTDIR, OSTYPE } = process.env;
+    let nodePath = tryWhich('node') // Search for Node's global executable
 
     // c:\node\node.exe --> prefix=c:\node\
     if (process.platform === 'win32' || OSTYPE === 'msys' || OSTYPE === 'cygwin') {
-      prefix = APPDATA ? path.join(APPDATA, 'npm') : path.dirname(process.execPath);
+      prefix = APPDATA ? path.join(APPDATA, 'npm') : path.dirname(nodePath);
       return prefix;
     }
 
     // /usr/local/bin/node --> prefix=/usr/local
-    prefix = path.dirname(path.dirname(process.execPath));
+    prefix = path.dirname(path.dirname(nodePath));
 
     // destdir only is respected on Unix
     if (DESTDIR) {
@@ -62,9 +63,9 @@ const getPrefix = () => {
   return prefix;
 }
 
-function tryNpmPath() {
+function tryWhich(exec) {
   try {
-    return fs.realpathSync(require('which').sync('npm'));
+    return fs.realpathSync(require('which').sync(exec));
   } catch (err) { /* do nothing */ }
 }
 
